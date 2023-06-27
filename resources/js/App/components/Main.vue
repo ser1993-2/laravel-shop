@@ -1,10 +1,10 @@
 <template>
-    hey
+2
 </template>
 
 <script>
 export default {
-    name: "App.vue"
+    name: "Main"
 }
 </script>
 
