@@ -9,6 +9,7 @@
     <title>Laravel</title>
 
     @vite('resources/js/App/main.js')
+    @vite('resources/js/App/app.css')
 </head>
 <body>
 
