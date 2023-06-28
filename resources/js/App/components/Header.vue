@@ -10,6 +10,7 @@
                 <Search/>
 
                 <Auth/>
+
             </div>
         </div>
     </header>
