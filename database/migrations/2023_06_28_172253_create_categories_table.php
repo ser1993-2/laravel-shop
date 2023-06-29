@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('title',255);
-            $table->text('description');
-            $table->unsignedInteger('image_id')->nullable();
-            $table->unsignedInteger('parent_id')->nullable();
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('image_id')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable();
+
+            $table->foreign('image_id')->on('images')->references('id')->cascadeOnDelete();
+            $table->foreign('parent_id')->on('categories')->references('id')->cascadeOnDelete();
         });
     }
 
