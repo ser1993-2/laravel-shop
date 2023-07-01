@@ -16,15 +16,11 @@
 
 <script>
 export default {
-    name: "Login",
+    name: "User",
     methods: {
         logout() {
-            axios.get('/api/user/logout')
-                .then((response) => {
-                    console.log(response);
-                }).catch((error) => {
-                console.log(error);
-            })
+            this.$store.dispatch('logout');
+            this.$router.push('/');
         },
     }
 }

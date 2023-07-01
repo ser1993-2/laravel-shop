@@ -1,36 +1,27 @@
 <template>
-
-    <User v-if="!user"/>
-    <Login v-if="user"/>
+    <Profile v-if="isAuth"/>
+    <SignIn v-if="!isAuth"/>
 </template>
 
 <script>
 
-import Login from "./Auth/Login.vue";
-import User from "./Auth/User.vue";
+import SignIn from "./Auth/SignIn.vue";
+import Profile from "./Auth/Profile.vue";
 
 export default {
     name: "Auth",
     components: {
-        Login,
-        User
+        SignIn,
+        Profile
     },
-    data() {
-        return {
-            user: null,
-        }
+    computed: {
+        isAuth() {
+            return this.$store.getters.getIsAuth;
+        },
     },
-    created: function () {
-        this.getUser();
-    },
-    methods: {
-        getUser() {
-            axios.get('/api/user')
-                .then((response) => {
-                this.user = response.data;
-            })
-        }
-    },
+    mounted() {
+        this.$store.dispatch('getUser');
+    }
 }
 </script>
 
