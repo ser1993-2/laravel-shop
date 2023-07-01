@@ -26,7 +26,7 @@
 
 <script>
 export default {
-    name: "Login" ,
+    name: "LoginForm" ,
     computed: {
         currentUser() {
             this.checkIsAuth();

@@ -1,33 +1,30 @@
 export default {
     actions: {
-        getUser(ctx) {
+        getUser({commit}) {
             axios.get('/api/user')
                 .then((response) => {
                     let user = response.data;
-                    ctx.commit('updateUser',user);
-                    ctx.commit('updateAuth', !!user);
+                    commit('updateUser',user);
+                    commit('updateAuth', !!user);
                 })
                 .catch((error) => {
-                    ctx.commit('updateUser',{});
-                    ctx.commit('updateAuth',false);
+                    commit('updateUser',{});
+                    commit('updateAuth',false);
                 })
         },
-        login(ctx,user) {
+        login({commit,dispatch},user) {
             axios.post('/api/user/login' , user)
                 .then((response) => {
-                    ctx.dispatch('getUser');
+                    dispatch('getUser');
                 }).catch((error) => {
-                    ctx.commit('updateErrors', error.response.data.errors);
+                    commit('updateErrors', error.response.data.errors);
             })
         },
-        logout(ctx) {
+        logout({commit}) {
             axios.get('/api/user/logout')
-                .then((response) => {
-                    ctx.commit('updateUser',{});
-                    ctx.commit('updateAuth',false);
-                }).catch((error) => {
-                    ctx.commit('updateUser', {});
-                    ctx.commit('updateAuth',false);
+                .finally(() => {
+                    commit('updateUser',{});
+                    commit('updateAuth',false);
             })
         },
     },
