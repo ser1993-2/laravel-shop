@@ -20,6 +20,14 @@ export default {
                     commit('updateErrors', error.response.data.errors);
             })
         },
+        register({commit,dispatch},user) {
+            axios.post('/api/user/register' , user)
+                .then((response) => {
+                    dispatch('getUser');
+                }).catch((error) => {
+                    commit('updateErrors', error.response.data.errors);
+            })
+        },
         logout({commit}) {
             axios.get('/api/user/logout')
                 .finally(() => {
@@ -27,6 +35,9 @@ export default {
                     commit('updateAuth',false);
             })
         },
+        errorsClear({commit}) {
+            commit('updateErrors',{});
+        }
     },
     mutations: {
         updateUser(state,user) {

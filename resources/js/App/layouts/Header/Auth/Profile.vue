@@ -6,7 +6,6 @@
         <ul class="dropdown-menu text-small">
             <li><a class="dropdown-item" href="#">Профиль</a></li>
             <li><a class="dropdown-item" href="#">Профиль</a></li>
-            <li><a class="dropdown-item" href="#">Профиль</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#" v-on:click="logout">Выход</a></li>
         </ul>

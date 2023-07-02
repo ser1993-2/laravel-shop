@@ -23,8 +23,9 @@ Route::middleware('web')->prefix('user')->group( function () {
         return auth()->user();
     });
 
-    Route::post('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store'])->name('auth.store');
-    Route::get('/logout', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy'])->name('auth.destroy');
+    Route::post('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store'])->name('auth.login');
+    Route::post('/register', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->name('auth.register');
+    Route::get('/logout', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy'])->name('auth.logout');
 });
 
 

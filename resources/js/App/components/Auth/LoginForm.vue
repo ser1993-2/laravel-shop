@@ -19,24 +19,30 @@
                 </ul>
             </div>
 
+            <Error/>
+
             <button class="btn btn-primary w-100 py-2" v-on:click="login" type="submit">Войти</button>
         </div>
     </main>
 </template>
 
 <script>
+
+import Error from "../../layouts/Header/Auth/Form/Error.vue";
+
 export default {
     name: "LoginForm" ,
+    components: {
+        Error,
+    },
     computed: {
         currentUser() {
             this.checkIsAuth();
             return this.$store.getters.getCurrentUser;
         },
-        errors() {
-            return this.$store.getters.getErrors;
-        },
     },
     mounted() {
+        this.$store.dispatch('errorsClear');
         this.checkIsAuth();
     },
     methods: {

@@ -43,6 +43,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function userRole()
+    {
+        return $this->hasOne(UserRole::class);
+    }
+
     public function roles()
     {
         return $this->hasManyThrough(Roles::class,UserRole::class,'user_id','id','id','role_id');
