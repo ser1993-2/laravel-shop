@@ -9,4 +9,9 @@ class Categories extends Model
 {
     use HasFactory;
     public $timestamps = false;
+
+    public function image()
+    {
+        return $this->belongsTo(Images::class);
+    }
 }

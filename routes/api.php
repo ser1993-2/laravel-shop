@@ -28,4 +28,8 @@ Route::middleware('web')->prefix('user')->group( function () {
     Route::get('/logout', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy'])->name('auth.logout');
 });
 
+Route::middleware('web')->prefix('category')->group( function () {
+    Route::get('/', [\App\Http\Controllers\CategoriesController::class, 'index'])->name('category.index');
+});
+
 

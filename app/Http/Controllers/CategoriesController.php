@@ -13,7 +13,10 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        return Categories::query()
+            ->with('image')
+            ->whereNull('parent_id')
+            ->get();
     }
 
     /**

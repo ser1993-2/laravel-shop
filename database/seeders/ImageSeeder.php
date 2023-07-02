@@ -14,12 +14,10 @@ class ImageSeeder extends Seeder
     public function run(): void
     {
         $mainCategoryImages = [
-            ['id' => 1, 'src' => '/images/category/notebook.png'],
-            ['id' => 2, 'src' => '/images/category/smartphone.png'],
-            ['id' => 3, 'src' => '/images/category/tv.png'],
-            ['id' => 4, 'src' => '/images/category/monitor.png'],
-            ['id' => 5, 'src' => '/images/category/processor.png'],
-            ['id' => 6, 'src' => '/images/category/computer.png'],
+            ['id' => 1, 'src' => '/images/category/notebook.webp'],
+            ['id' => 2, 'src' => '/images/category/smartphone.webp'],
+            ['id' => 3, 'src' => '/images/category/tv.webp'],
+            ['id' => 4, 'src' => '/images/category/monitor.webp'],
         ];
 
         Images::insert($mainCategoryImages);

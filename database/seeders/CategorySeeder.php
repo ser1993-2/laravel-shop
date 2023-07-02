@@ -18,8 +18,6 @@ class CategorySeeder extends Seeder
             ['title' => 'Смартфоны' , 'description' => '', 'image_id' => 2, 'parent_id' => null],
             ['title' => 'Телевизоры' , 'description' => '', 'image_id' => 3, 'parent_id' => null],
             ['title' => 'Мониторы' , 'description' => '', 'image_id' => 4, 'parent_id' => null],
-            ['title' => 'Процессоры' , 'description' => '', 'image_id' => 5, 'parent_id' => null],
-            ['title' => 'Компьютеры' , 'description' => '', 'image_id' => 6, 'parent_id' => null],
         ];
 
         Categories::insert($mainCategories);

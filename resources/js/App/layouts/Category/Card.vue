@@ -1,21 +1,10 @@
 <template>
     <div class="col">
-        <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
+        <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg category-card"
+             v-bind:style="'background-image: url('+ category.image.src +');'"
+        >
             <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Short title, long jacket</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                    <li class="me-auto">
-                        <img src="https://github.com/twbs.png" alt="Bootstrap" class="rounded-circle border border-white" width="32" height="32">
-                    </li>
-                    <li class="d-flex align-items-center me-3">
-                        <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                        <small>Earth</small>
-                    </li>
-                    <li class="d-flex align-items-center">
-                        <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                        <small>3d</small>
-                    </li>
-                </ul>
+                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{{ category.title }}</h3>
             </div>
         </div>
     </div>
@@ -23,10 +12,17 @@
 
 <script>
 export default {
-    name: "Card"
+    name: "Card",
+    props: ['category'],
 }
 </script>
 
 <style scoped>
+
+.category-card {
+    background-color:white;
+    background-position:center;
+    background-size: cover;
+}
 
 </style>
