@@ -20,6 +20,22 @@ class ImageSeeder extends Seeder
             ['id' => 4, 'src' => '/images/category/monitor.webp'],
         ];
 
+        $mainProductImages = [
+            ['id' => 5, 'src' => '/images/product/5.webp'],
+            ['id' => 6, 'src' => '/images/product/6.webp'],
+            ['id' => 7, 'src' => '/images/product/7.webp'],
+            ['id' => 8, 'src' => '/images/product/8.webp'],
+            ['id' => 9, 'src' => '/images/product/9.webp'],
+            ['id' => 10, 'src' => '/images/product/10.webp'],
+            ['id' => 11, 'src' => '/images/product/11.webp'],
+        ];
+
+        $mainBrands = [
+            ['id' => 12, 'src' => '/images/product/huawei.webp'],
+        ];
+
         Images::insert($mainCategoryImages);
+        Images::insert($mainProductImages);
+        Images::insert($mainBrands);
     }
 }
