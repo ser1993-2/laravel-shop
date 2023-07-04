@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class BrandModel extends Model
 {
     use HasFactory;
+    protected $hidden = ['id','image_id'];
 }

@@ -2,7 +2,7 @@
     <div class="container px-4 py-5" id="custom-cards">
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
 
-                <Card
+                <CategoryCard
                     v-for="category in categories"
                     :category="category"
                 />
@@ -13,12 +13,12 @@
 
 <script>
 
-import Card from "../layouts/Category/Card.vue";
+import CategoryCard from "../layouts/Category/CategoryCard.vue";
 
 export default {
     name: "Category",
     components: {
-        Card
+        CategoryCard
     },
     computed: {
         categories() {

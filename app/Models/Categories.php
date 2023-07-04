@@ -14,4 +14,14 @@ class Categories extends Model
     {
         return $this->belongsTo(Images::class);
     }
+
+    public function childCategories()
+    {
+        return $this->hasMany(Categories::class,'parent_id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Products::class,'category_id');
+    }
 }

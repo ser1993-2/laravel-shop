@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoriesRequest;
 use App\Http\Requests\UpdateCategoriesRequest;
 use App\Models\Categories;
+use App\Models\Products;
 
 class CategoriesController extends Controller
 {
@@ -38,7 +39,7 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Categories $categories)
+    public function show(Categories $categories,$alias)
     {
         //
     }
@@ -65,5 +66,34 @@ class CategoriesController extends Controller
     public function destroy(Categories $categories)
     {
         //
+    }
+    public function getCategoriesById($id)
+    {
+        return Categories::query()
+            ->with('image')
+            ->where('id',$id)
+            ->get();
+    }
+
+    public function getCategoriesByParentId($parentId)
+    {
+        return Categories::query()
+            ->with('image')
+            ->where('parent_id',$parentId)
+            ->get();
+    }
+
+    public function getCategoriesByAlias($alias)
+    {
+        $category = Categories::where('alias',$alias)
+            ->first();
+
+        if ($category) {
+            $childCategories = $this->getCategoriesByParentId($category->id);
+
+            return response()->json($childCategories, $childCategories->isNotEmpty() ? 200 : 400);
+        }
+
+        return response()->json(false,400);
     }
 }

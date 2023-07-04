@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductsRequest;
 use App\Http\Requests\UpdateProductsRequest;
+use App\Models\Categories;
 use App\Models\Products;
 
 class ProductsController extends Controller
@@ -62,5 +63,31 @@ class ProductsController extends Controller
     public function destroy(Products $products)
     {
         //
+    }
+
+    public function getQueryForProducts()
+    {
+        return Products::query();
+    }
+
+    public function getProductsByCategoryId($categoryId)
+    {
+        return $this->getQueryForProducts()
+            ->where('category_id', $categoryId)
+            ->get();
+    }
+
+    public function getProductsByCategoryAlias($categoryAlias)
+    {
+        $category = Categories::where('alias',$categoryAlias)
+            ->first();
+
+        if ($category) {
+            $products = $this->getProductsByCategoryId($category->id);
+
+            return response()->json($products);
+        }
+
+        return response()->json(false, 400);
     }
 }

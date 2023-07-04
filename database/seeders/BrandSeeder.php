@@ -15,6 +15,7 @@ class BrandSeeder extends Seeder
     {
         $mainBrand = [
             ['id' => 1, 'title' => 'Huawei' , 'image_id' => 12],
+            ['id' => 2, 'title' => 'Palit' , 'image_id' => 12],
         ];
 
         Brand::insert($mainBrand);

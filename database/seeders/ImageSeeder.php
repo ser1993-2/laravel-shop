@@ -31,8 +31,13 @@ class ImageSeeder extends Seeder
         ];
 
         $mainBrands = [
-            ['id' => 12, 'src' => '/images/product/huawei.webp'],
+            ['id' => 12, 'src' => '/images/brand/huawei.webp'],
         ];
+
+        $mainCategoryImages[] = ['id' => 13, 'src' => '/images/category/computer_components.webp'];
+        $mainCategoryImages[] = ['id' => 14, 'src' => '/images/category/videocard.webp'];
+
+        $mainBrands[] = ['id' => 15, 'src' => '/images/brand/palit.png'];
 
         Images::insert($mainCategoryImages);
         Images::insert($mainProductImages);
