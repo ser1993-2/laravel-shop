@@ -83,7 +83,15 @@ class CategoriesController extends Controller
             ->get();
     }
 
-    public function getCategoriesByAlias($alias)
+    public function getCategoryByAlias($alias)
+    {
+        $category = Categories::where('alias',$alias)
+            ->first();
+
+        return response()->json($category);
+    }
+
+    public function getChildCategoriesByAlias($alias)
     {
         $category = Categories::where('alias',$alias)
             ->first();

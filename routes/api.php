@@ -30,7 +30,8 @@ Route::middleware('web')->prefix('user')->group( function () {
 
 Route::middleware('web')->prefix('category')->group( function () {
     Route::get('/', [\App\Http\Controllers\CategoriesController::class, 'index'])->name('category.index');
-    Route::get('/{alias}', [\App\Http\Controllers\CategoriesController::class, 'getCategoriesByAlias'])->name('category.categoriesByAlias');
+    Route::get('/{alias}/', [\App\Http\Controllers\CategoriesController::class, 'getCategoryByAlias'])->name('category.getCategoryByAlias');
+    Route::get('/{alias}/child', [\App\Http\Controllers\CategoriesController::class, 'getChildCategoriesByAlias'])->name('category.childCategoriesByAlias');
     Route::get('/{alias}/products', [\App\Http\Controllers\CategoriesController::class, 'getProductsByCategoryAlias'])->name('category.productsByCategoryAlias');
 });
 
