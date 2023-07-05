@@ -74,7 +74,7 @@ class ProductsController extends Controller
     {
         return $this->getQueryForProducts()
             ->where('category_id', $categoryId)
-            ->get();
+            ->paginate(10);
     }
 
     public function getProductsByCategoryAlias($categoryAlias)
