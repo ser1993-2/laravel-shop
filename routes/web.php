@@ -12,6 +12,10 @@ Route::get('/category', function () {
     return view('index');
 });
 
+Route::get('/category/{alias}', function () {
+    return view('index');
+});
+
 Route::get('/product/{alias}', function () {
     return view('index');
 });
