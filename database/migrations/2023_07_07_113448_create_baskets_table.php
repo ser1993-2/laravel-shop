@@ -13,11 +13,8 @@ return new class extends Migration
     {
         Schema::create('baskets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('uuid')->nullable();
+            $table->string('uuid')->index();
             $table->timestamps();
-
-            $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
         });
     }
 

@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('basket_products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('basket_id')->nullable();
+            $table->unsignedBigInteger('basket_id');
+            $table->unsignedBigInteger('product_id');
+            $table->smallInteger('quantity')->default(1);
 
             $table->foreign('basket_id')->on('baskets')->references('id')->cascadeOnDelete();
+            $table->foreign('product_id')->on('products')->references('id')->cascadeOnDelete();
         });
     }
 

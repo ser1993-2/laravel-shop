@@ -39,5 +39,9 @@ Route::middleware('web')->prefix('product')->group( function () {
     Route::get('/{alias}', [\App\Http\Controllers\ProductsController::class, 'getProductsByCategoryAlias'])->name('product.categoriesByAlias');
 });
 
+Route::middleware('web')->prefix('basket')->group( function () {
+    Route::get('/', [\App\Http\Controllers\BasketController::class, 'index'])->name('basket.index');
+});
+
 
 

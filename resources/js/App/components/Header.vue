@@ -9,6 +9,8 @@
 
                 <Search/>
 
+                <Basket/>
+
                 <Auth/>
 
             </div>
@@ -22,6 +24,7 @@ import Menu from "../layouts/Header/Menu.vue";
 import Search from "../layouts/Header/Search.vue";
 import Auth from "../layouts/Header/Auth.vue";
 import Logo from "../layouts/Header/Logo.vue";
+import Basket from "../layouts/Header/Auth/Basket.vue";
 
 export default {
     name: "Header",
@@ -29,7 +32,8 @@ export default {
         Menu,
         Search,
         Auth,
-        Logo
+        Logo,
+        Basket
     }
 }
 </script>
