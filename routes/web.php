@@ -20,6 +20,10 @@ Route::get('/product/{alias}', function () {
     return view('index');
 });
 
+Route::get('/basket', function () {
+    return view('index');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

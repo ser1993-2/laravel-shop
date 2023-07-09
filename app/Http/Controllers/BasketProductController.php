@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBasketProductRequest;
 use App\Http\Requests\UpdateBasketProductRequest;
+use App\Models\Basket;
 use App\Models\BasketProduct;
 
 class BasketProductController extends Controller
@@ -13,7 +14,11 @@ class BasketProductController extends Controller
      */
     public function index()
     {
-        //
+        $basket = Basket::with('products')
+            ->where('uuid', session('basket_uuid'))
+            ->first();
+
+        return response()->json($basket->products);
     }
 
     /**

@@ -1,10 +1,15 @@
 <template>
-    <div class="margin-right">
-        <a href="#" class="d-block link-body-emphasis text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="/images/basket/cart.png" alt="mdo" width="32" height="32">
-        </a>
-        {{ basket.products.length }}
-    </div>
+    <router-link class="nav-link px-2 link-body-emphasis" :to="{ 'name' : 'basket'}">
+        <div class="margin-right">
+
+            <span class="d-block link-body-emphasis text-decoration-none" data-bs-toggle="dropdown"
+               aria-expanded="false">
+                <img src="/images/basket/cart.png" alt="mdo" width="32" height="32">
+            </span>
+
+            {{ basket.products ? basket.products.length : '' }}
+        </div>
+    </router-link>
 </template>
 
 <script>

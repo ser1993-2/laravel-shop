@@ -41,6 +41,10 @@ Route::middleware('web')->prefix('product')->group( function () {
 
 Route::middleware('web')->prefix('basket')->group( function () {
     Route::get('/', [\App\Http\Controllers\BasketController::class, 'index'])->name('basket.index');
+
+    Route::prefix('product')->group( function () {
+        Route::get('/', [\App\Http\Controllers\BasketProductController::class, 'index'])->name('basket.product.index');
+    });
 });
 
 

@@ -5,6 +5,7 @@ import Category from "../components/Category.vue";
 import LoginForm from "../components/Auth/LoginForm.vue";
 import RegisterForm from "../components/Auth/RegisterForm.vue";
 import Product from "../components/Product.vue";
+import Basket from "../components/Basket.vue";
 
 const routes = [
     {
@@ -31,6 +32,11 @@ const routes = [
         path: '/product/:alias',
         name: 'product',
         component: Product
+    },
+    {
+        path: '/basket',
+        name: 'basket',
+        component: Basket
     }
 ];
 
