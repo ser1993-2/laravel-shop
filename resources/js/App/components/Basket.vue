@@ -1,14 +1,25 @@
 <template>
-    <div class="container px-4 py-5" id="custom-cards">
-        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
 
-            <BasketCard
-                v-for="basketProduct in basketProducts"
-                :basketProduct="basketProduct"
-            />
 
-        </div>
+  <div class="row g-5">
+
+    <div class="col-md-10">
+
+      <h3 v-if="!basketProducts.length" class="pb-4 mb-4 fst-italic">Корзина пуста</h3>
+
+      <article class="blog-post">
+
+        <BasketCard
+            v-for="basketProduct in basketProducts"
+            :basketProduct="basketProduct"
+        />
+
+      </article>
+
     </div>
+
+  </div>
+
 </template>
 
 <script>

@@ -1,19 +1,36 @@
 <template>
-    <div class="col">
-<!--        <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg category-card"-->
-<!--             v-bind:style="'background-image: url('+ basketProduct.image.src +');'"-->
-<!--        >-->
-            <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{{ basketProduct.title }}</h3>
-            </div>
+
+    <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+        <div class="col-lg-4">
+            <img src="/images/category/videocard.webp" width="200" height="96" alt="">
         </div>
-<!--    </div>-->
+        <div class="col-lg-4">
+            <h6 class="mb-0">{{ basketProduct.product.title }}</h6>
+            <small class="text-body-secondary">*4.5</small>
+        </div>
+        <div class="col-lg-2">
+            <h6 class="mb-0">{{ basketProduct.product.price }} ₽</h6>
+        </div>
+        <div class="col-lg-2">
+            <h6 class="mb-0">Количество: {{ basketProduct.quantity }} шт.</h6>
+        </div>
+        <div class="col-lg-2">
+            <small class="text-body-secondary">
+                <button class="btn btn-danger" v-on:click="deleteProduct(basketProduct.product.id)">Убрать</button>
+            </small>
+        </div>
+    </a>
 </template>
 
 <script>
 export default {
     name: "Card",
     props: ['basketProduct'],
+    methods: {
+        deleteProduct(product_id) {
+            this.$store.dispatch('DELETE_BASKET_PRODUCT',product_id);
+        },
+    }
 }
 </script>
 

@@ -14,11 +14,13 @@ class BasketProductController extends Controller
      */
     public function index()
     {
-        $basket = Basket::with('products')
-            ->where('uuid', session('basket_uuid'))
-            ->first();
+        $basketProducts = BasketProduct::whereHas('basket', function($query) {
+            $query->where('uuid', session('basket_uuid'));
+        })
+            ->with('product')
+            ->get();
 
-        return response()->json($basket->products);
+        return response()->json($basketProducts);
     }
 
     /**
@@ -64,8 +66,9 @@ class BasketProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(BasketProduct $basketProduct)
+    public function destroy($productId)
     {
-        //
+        return BasketProduct::where('product_id',$productId)
+            ->delete();
     }
 }

@@ -44,6 +44,7 @@ Route::middleware('web')->prefix('basket')->group( function () {
 
     Route::prefix('product')->group( function () {
         Route::get('/', [\App\Http\Controllers\BasketProductController::class, 'index'])->name('basket.product.index');
+        Route::delete('/{productId}', [\App\Http\Controllers\BasketProductController::class, 'destroy'])->name('basket.product.destroy');
     });
 });
 

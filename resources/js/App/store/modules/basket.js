@@ -20,6 +20,16 @@ export default {
                     commit('updateBasketProducts',{});
                 })
         },
+        DELETE_BASKET_PRODUCT({commit,dispatch},product_id) {
+            let data = { 'product_id' : product_id };
+            axios.delete('/api/basket/product/' + product_id)
+                .then((response) => {
+                    dispatch('GET_BASKET_PRODUCTS');
+                })
+                .catch((error) => {
+                    dispatch('GET_BASKET_PRODUCTS');
+                })
+        },
 
     },
     mutations: {
