@@ -7,12 +7,16 @@
 
       <h3 v-if="!basketProducts.length" class="pb-4 mb-4 fst-italic">Корзина пуста</h3>
 
-      <article class="blog-post">
+      <article v-if="basketProducts" class="blog-post">
 
         <BasketCard
             v-for="basketProduct in basketProducts"
             :basketProduct="basketProduct"
         />
+
+          <BasketTotal
+              :basketProducts="basketProducts"
+          />
 
       </article>
 
@@ -25,11 +29,13 @@
 <script>
 
 import BasketCard from "../layouts/Basket/BasketCard.vue";
+import BasketTotal from "../layouts/Basket/BasketTotal.vue";
 
 export default {
     name: "Basket",
     components: {
-        BasketCard
+        BasketCard,
+        BasketTotal
     },
     computed: {
         basketProducts() {
