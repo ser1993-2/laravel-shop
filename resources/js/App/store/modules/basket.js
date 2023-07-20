@@ -5,9 +5,11 @@ export default {
                 .then((response) => {
                     let basket = response.data;
                     commit('updateBasket',basket);
+                    commit('updateIsOrderButton',true);
                 })
                 .catch((error) => {
                     commit('updateBasket',{});
+                    commit('updateIsOrderButton',true);
                 })
         },
         GET_BASKET_PRODUCTS({commit}) {
@@ -15,13 +17,16 @@ export default {
                 .then((response) => {
                     let basketProducts = response.data;
                     commit('updateBasketProducts',basketProducts);
+                    commit('updateIsOrderButton',true);
                 })
                 .catch((error) => {
                     commit('updateBasketProducts',{});
+                    commit('updateIsOrderButton',true);
                 })
         },
         DELETE_BASKET_PRODUCT({commit,dispatch},product_id) {
-            let data = { 'product_id' : product_id };
+            commit('updateIsOrderButton',false);
+
             axios.delete('/api/basket/product/' + product_id)
                 .then((response) => {
                     dispatch('GET_BASKET_PRODUCTS');
@@ -31,6 +36,33 @@ export default {
                 })
         },
 
+        UPDATE_BASKET_PRODUCT({commit,dispatch},basket_product) {
+            commit('updateIsOrderButton',false);
+
+            if (basket_product.quantity <= 0) {
+                dispatch('DELETE_BASKET_PRODUCT',basket_product.id);
+            } else {
+                axios.put('/api/basket/' + basket_product.id , basket_product)
+                    .then((response) => {
+                        dispatch('GET_BASKET_PRODUCTS');
+                    })
+                    .catch((error) => {
+                        dispatch('GET_BASKET_PRODUCTS');
+                    })
+            }
+
+        },
+        ADD_BASKET_PRODUCT({commit,dispatch},product_id) {
+            let data = { 'product_id' : product_id };
+            axios.post('/api/basket/' , data)
+                .then((response) => {
+                    dispatch('GET_BASKET');
+                })
+                .catch((error) => {
+                    dispatch('GET_BASKET');
+                })
+        }
+
     },
     mutations: {
         updateBasket(state,basket) {
@@ -39,10 +71,14 @@ export default {
         updateBasketProducts(state,basketProducts) {
             state.basketProducts = basketProducts;
         },
+        updateIsOrderButton(state,isOrderButton) {
+            state.isOrderButton = isOrderButton;
+        },
     },
     state: {
         basket : {},
         basketProducts : {},
+        isOrderButton : true,
     },
     getters: {
         getBasket(state) {
@@ -50,6 +86,9 @@ export default {
         },
         getBasketProducts(state) {
             return state.basketProducts;
+        },
+        getIsOrderButton(state) {
+            return state.isOrderButton;
         },
     },
 }

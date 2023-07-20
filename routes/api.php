@@ -41,6 +41,8 @@ Route::middleware('web')->prefix('product')->group( function () {
 
 Route::middleware('web')->prefix('basket')->group( function () {
     Route::get('/', [\App\Http\Controllers\BasketController::class, 'index'])->name('basket.index');
+    Route::put('/{id}', [\App\Http\Controllers\BasketController::class, 'update'])->name('basket.update');
+    Route::post('/', [\App\Http\Controllers\BasketController::class, 'store'])->name('basket.store');
 
     Route::prefix('product')->group( function () {
         Route::get('/', [\App\Http\Controllers\BasketProductController::class, 'index'])->name('basket.product.index');

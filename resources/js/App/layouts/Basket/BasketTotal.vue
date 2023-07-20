@@ -10,7 +10,12 @@
         </div>
         <div class="col-lg-2">
             <small class="text-body-secondary">
-                <button class="btn btn-info">Оформить</button>
+                <button v-if="isOrderButton" class="btn btn-primary">Оформить</button>
+
+                <button v-if="!isOrderButton" class="btn btn-primary" type="button" disabled="">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span class="visually-hidden">Loading...</span>
+                </button>
             </small>
         </div>
         <div class="col-lg-2">
@@ -27,6 +32,11 @@ export default {
         return {
             total_price : 0,
         }
+    },
+    computed: {
+        isOrderButton() {
+            return this.$store.getters.getIsOrderButton;
+        },
     },
     watch: {
         basketProducts() {

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Basket\GetBasketBySessionAction;
 use App\Http\Requests\StoreBasketRequest;
 use App\Http\Requests\UpdateBasketRequest;
 use App\Models\Basket;
+use App\Models\BasketProduct;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -12,21 +14,12 @@ class BasketController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @param GetBasketBySessionAction $action
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(GetBasketBySessionAction $action)
     {
-        if (session('basket_uuid')) {
-            $basket = Basket::with('products')
-                ->where('uuid', session('basket_uuid'))
-                ->first();
-        } else {
-            session(['basket_uuid' => Str::uuid()]);
-
-            $basket = Basket::create([
-                'uuid' => session('basket_uuid'),
-                'created_at' => Carbon::now()
-            ]);
-        }
+        $basket = $action->handle();
 
         return response()->json($basket);
     }
@@ -42,9 +35,15 @@ class BasketController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBasketRequest $request)
+    public function store(StoreBasketRequest $request,GetBasketBySessionAction $action)
     {
-        //
+        $basket = $action->handle();
+
+        $data = array_merge($request->only(['product_id']), ['basket_id' => $basket->id, 'quantity' => 1]);
+
+        $result = BasketProduct::create($data);
+
+        return response()->json($result);
     }
 
     /**
@@ -66,9 +65,12 @@ class BasketController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBasketRequest $request, Basket $basket)
+    public function update(UpdateBasketRequest $request,$id)
     {
-        //
+        $result = BasketProduct::where('id',$id)
+            ->update($request->only(['quantity']));
+
+        return response()->json($result);
     }
 
     /**

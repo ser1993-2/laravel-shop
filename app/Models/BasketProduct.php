@@ -9,6 +9,9 @@ class BasketProduct extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+    protected $fillable = ['basket_id', 'product_id', 'quantity'];
+
     public function basket() {
         return $this->belongsTo(Basket::class);
     }
