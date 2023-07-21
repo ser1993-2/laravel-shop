@@ -22,7 +22,7 @@ class UpdateBasketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'quantity' => 'required|min_digits:1',
+            //
         ];
     }
 }

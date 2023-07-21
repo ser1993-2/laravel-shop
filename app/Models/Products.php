@@ -12,6 +12,11 @@ class Products extends Model
     protected $appends = ['title'];
     protected $hidden = ['brand_id','brand_model_id','user_id','created_at','updated_at'];
 
+    public function image()
+    {
+        return $this->belongsTo(Images::class);
+    }
+
     public function images()
     {
         return $this->hasManyThrough(Images::class,ProductImage::class,'product_id','id','id','image_id');

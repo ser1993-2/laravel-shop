@@ -14,13 +14,21 @@ class ProductImageSeeder extends Seeder
     public function run(): void
     {
         $mainProductImages = [
-            ['product_id' => 1, 'image_id' => 5],
-            ['product_id' => 1, 'image_id' => 6],
-            ['product_id' => 1, 'image_id' => 7],
-            ['product_id' => 1, 'image_id' => 8],
-            ['product_id' => 1, 'image_id' => 9],
-            ['product_id' => 1, 'image_id' => 10],
-            ['product_id' => 1, 'image_id' => 11],
+            ['product_id' => 2, 'image_id' => 5],
+            ['product_id' => 2, 'image_id' => 6],
+            ['product_id' => 2, 'image_id' => 7],
+            ['product_id' => 3, 'image_id' => 8],
+            ['product_id' => 2, 'image_id' => 9],
+            ['product_id' => 2, 'image_id' => 10],
+            ['product_id' => 2, 'image_id' => 11],
+
+            ['product_id' => 3, 'image_id' => 5],
+            ['product_id' => 3, 'image_id' => 6],
+            ['product_id' => 3, 'image_id' => 7],
+            ['product_id' => 3, 'image_id' => 8],
+            ['product_id' => 3, 'image_id' => 9],
+            ['product_id' => 3, 'image_id' => 10],
+            ['product_id' => 3, 'image_id' => 11],
         ];
 
         ProductImage::insert($mainProductImages);

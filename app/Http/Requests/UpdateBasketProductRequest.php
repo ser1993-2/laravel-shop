@@ -11,7 +11,7 @@ class UpdateBasketProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class UpdateBasketProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'quantity' => 'required|min_digits:1',
         ];
     }
 }

@@ -15,12 +15,14 @@ return new class extends Migration
             $table->id();
             $table->text('description')->nullable();
             $table->integer('price')->nullable();
+            $table->unsignedBigInteger('image_id');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('brand_model_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
+            $table->foreign('image_id')->on('images')->references('id')->cascadeOnDelete();
             $table->foreign('category_id')->on('categories')->references('id')->cascadeOnDelete();
             $table->foreign('brand_id')->on('brands')->references('id')->cascadeOnDelete();
             $table->foreign('brand_model_id')->on('brand_models')->references('id')->cascadeOnDelete();

@@ -2,7 +2,7 @@
 
     <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
         <div class="col-lg-4">
-            <img src="/images/category/videocard.webp" width="200" height="96" alt="">
+            <img v-bind:src="basketProduct.product.image.src" width="200" height="96" alt="">
         </div>
         <div class="col-lg-4">
             <h6 class="mb-0">{{ basketProduct.product.title }}</h6>

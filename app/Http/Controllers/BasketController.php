@@ -35,15 +35,8 @@ class BasketController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBasketRequest $request,GetBasketBySessionAction $action)
+    public function store(StoreBasketRequest $request)
     {
-        $basket = $action->handle();
-
-        $data = array_merge($request->only(['product_id']), ['basket_id' => $basket->id, 'quantity' => 1]);
-
-        $result = BasketProduct::create($data);
-
-        return response()->json($result);
     }
 
     /**
@@ -67,10 +60,6 @@ class BasketController extends Controller
      */
     public function update(UpdateBasketRequest $request,$id)
     {
-        $result = BasketProduct::where('id',$id)
-            ->update($request->only(['quantity']));
-
-        return response()->json($result);
     }
 
     /**

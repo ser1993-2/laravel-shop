@@ -39,6 +39,14 @@ class ImageSeeder extends Seeder
 
         $mainBrands[] = ['id' => 15, 'src' => '/images/brand/palit.png'];
 
+        $mainProductImages = array_merge($mainProductImages , [
+            ['id' => 16, 'src' => '/images/product/12.webp'],
+            ['id' => 17, 'src' => '/images/product/13.webp'],
+            ['id' => 18, 'src' => '/images/product/14.webp'],
+            ['id' => 19, 'src' => '/images/product/15.webp'],
+            ['id' => 20, 'src' => '/images/product/16.webp'],
+        ]);
+
         Images::insert($mainCategoryImages);
         Images::insert($mainProductImages);
         Images::insert($mainBrands);

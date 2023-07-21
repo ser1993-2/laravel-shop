@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Basket\AddProductToBasketAction;
+use App\Actions\Basket\GetBasketBySessionAction;
 use App\Http\Requests\StoreBasketProductRequest;
 use App\Http\Requests\UpdateBasketProductRequest;
 use App\Models\Basket;
@@ -17,7 +19,9 @@ class BasketProductController extends Controller
         $basketProducts = BasketProduct::whereHas('basket', function($query) {
             $query->where('uuid', session('basket_uuid'));
         })
-            ->with('product')
+            ->with(['product' => function($q) {
+                $q->with('image');
+            }])
             ->get();
 
         return response()->json($basketProducts);
@@ -34,9 +38,15 @@ class BasketProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBasketProductRequest $request)
+    public function store(StoreBasketProductRequest $request, GetBasketBySessionAction $getBasketAction, AddProductToBasketAction $addProductAction)
     {
-        //
+        $basket = $getBasketAction->handle();
+
+        $data = array_merge($request->only(['product_id']), ['basket_id' => $basket->id, 'quantity' => 1]);
+
+        $result = $addProductAction->handle($data);
+
+        return response()->json($result);
     }
 
     /**
@@ -58,9 +68,12 @@ class BasketProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBasketProductRequest $request, BasketProduct $basketProduct)
+    public function update(UpdateBasketProductRequest $request, $id)
     {
-        //
+        $result = BasketProduct::where('id',$id)
+            ->update($request->only(['quantity']));
+
+        return response()->json($result);
     }
 
     /**

@@ -11,12 +11,15 @@ class GetBasketBySessionAction
 {
     public function handle()
     {
-        if (session('basket_uuid')) {
-            $basket = Basket::with('products')
-                ->where('uuid', session('basket_uuid'))
-                ->first();
-        } else {
-            session(['basket_uuid' => Str::uuid()]);
+        $basket = Basket::with('products')
+            ->where('uuid', session('basket_uuid'))
+            ->first();
+
+        if (!$basket) {
+
+            if (!session('basket_uuid')) {
+                session(['basket_uuid' => Str::uuid()]);
+            }
 
             $basket = Basket::create([
                 'uuid' => session('basket_uuid'),

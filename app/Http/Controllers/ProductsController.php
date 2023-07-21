@@ -67,7 +67,7 @@ class ProductsController extends Controller
 
     public function getQueryForProducts()
     {
-        return Products::query();
+        return Products::query()->with('image');
     }
 
     public function getProductsByCategoryId($categoryId)

@@ -42,7 +42,7 @@ export default {
             if (basket_product.quantity <= 0) {
                 dispatch('DELETE_BASKET_PRODUCT',basket_product.id);
             } else {
-                axios.put('/api/basket/' + basket_product.id , basket_product)
+                axios.put('/api/basket/product/' + basket_product.id , basket_product)
                     .then((response) => {
                         dispatch('GET_BASKET_PRODUCTS');
                     })
@@ -54,7 +54,7 @@ export default {
         },
         ADD_BASKET_PRODUCT({commit,dispatch},product_id) {
             let data = { 'product_id' : product_id };
-            axios.post('/api/basket/' , data)
+            axios.post('/api/basket/product' , data)
                 .then((response) => {
                     dispatch('GET_BASKET');
                 })
