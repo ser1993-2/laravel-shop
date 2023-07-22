@@ -9,9 +9,9 @@
 
                 <Search/>
 
-                <Basket/>
-
                 <Auth/>
+
+                <Basket/>
 
             </div>
         </div>

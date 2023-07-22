@@ -5,11 +5,12 @@ export default {
                 .then((response) => {
                     let basket = response.data;
                     commit('updateBasket',basket);
-                    commit('updateIsOrderButton',true);
                 })
                 .catch((error) => {
                     commit('updateBasket',{});
-                    commit('updateIsOrderButton',true);
+                })
+                .finally(() => {
+                    commit('updateIsOrderButton',true)
                 })
         },
         GET_BASKET_PRODUCTS({commit}) {
@@ -17,11 +18,12 @@ export default {
                 .then((response) => {
                     let basketProducts = response.data;
                     commit('updateBasketProducts',basketProducts);
-                    commit('updateIsOrderButton',true);
                 })
                 .catch((error) => {
                     commit('updateBasketProducts',{});
-                    commit('updateIsOrderButton',true);
+                })
+                .finally(() => {
+                    commit('updateIsOrderButton',true)
                 })
         },
         DELETE_BASKET_PRODUCT({commit,dispatch},product_id) {
@@ -29,9 +31,11 @@ export default {
 
             axios.delete('/api/basket/product/' + product_id)
                 .then((response) => {
-                    dispatch('GET_BASKET_PRODUCTS');
                 })
                 .catch((error) => {
+                })
+                .finally(() => {
+                    dispatch('GET_BASKET');
                     dispatch('GET_BASKET_PRODUCTS');
                 })
         },
@@ -44,9 +48,11 @@ export default {
             } else {
                 axios.put('/api/basket/product/' + basket_product.id , basket_product)
                     .then((response) => {
-                        dispatch('GET_BASKET_PRODUCTS');
                     })
                     .catch((error) => {
+                    })
+                    .finally(() => {
+                        dispatch('GET_BASKET');
                         dispatch('GET_BASKET_PRODUCTS');
                     })
             }
@@ -56,9 +62,10 @@ export default {
             let data = { 'product_id' : product_id };
             axios.post('/api/basket/product' , data)
                 .then((response) => {
-                    dispatch('GET_BASKET');
                 })
                 .catch((error) => {
+                })
+                .finally(() => {
                     dispatch('GET_BASKET');
                 })
         }

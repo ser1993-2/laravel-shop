@@ -1,13 +1,14 @@
 <template>
     <router-link class="nav-link px-2 link-body-emphasis" :to="{ 'name' : 'basket'}">
     <div class="nav-link px-2 link-body-emphasis">
-        <div class="margin-right">
+        <div>
 
-            <span class="d-block link-body-emphasis text-decoration-none">
-                <img src="/images/basket/cart.png" alt="mdo" width="32" height="32">
-            </span>
+            <img class="cart-logo" src="/images/basket/cart.png" alt="mdo" width="32" height="32">
 
-            {{ basket.products ? basket.products.length : '' }}
+            <div class="basket-count">
+                {{ basket.products ? basket.products.length : '' }}
+            </div>
+
         </div>
     </div>
     </router-link>
@@ -29,7 +30,18 @@ export default {
 </script>
 
 <style scoped>
-.margin-right {
-    margin-right: 10px;
+.cart-logo {
+    position: absolute;
 }
+
+.basket-count{
+    background-color: orange;
+    padding: 3px 7px;
+    color: white;
+    border-radius: 50px;
+    position: relative;
+    top: -12px;
+    left: 20px;
+}
+
 </style>

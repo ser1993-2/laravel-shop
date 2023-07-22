@@ -1,6 +1,8 @@
 export default {
     actions: {
         GET_PRODUCTS_BY_CATEGORY_ALIAS({commit,state},category_alias ) {
+            commit('updateProducts',{});
+
             axios.get('/api/product/' + category_alias + '?page=' + state.page)
                 .then((response) => {
                     let products = response.data;
