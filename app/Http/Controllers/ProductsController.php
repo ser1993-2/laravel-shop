@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductsRequest;
 use App\Http\Requests\UpdateProductsRequest;
+use App\Models\Brand;
+use App\Models\BrandModel;
 use App\Models\Categories;
 use App\Models\Products;
 
@@ -67,14 +69,13 @@ class ProductsController extends Controller
 
     public function getQueryForProducts()
     {
-        return Products::query()->with('image');
+        return Products::query()->with(['image','brand','brandModel']);
     }
 
     public function getProductsByCategoryId($categoryId)
     {
         return $this->getQueryForProducts()
-            ->where('category_id', $categoryId)
-            ->paginate(10);
+            ->where('category_id', $categoryId);
     }
 
     public function getProductsByCategoryAlias($categoryAlias)
@@ -83,9 +84,37 @@ class ProductsController extends Controller
             ->first();
 
         if ($category) {
-            $products = $this->getProductsByCategoryId($category->id);
+            $products = $this->getProductsByCategoryId($category->id)
+                ->paginate(10);
 
             return response()->json($products);
+        }
+
+        return response()->json(false, 400);
+    }
+
+    public function getFilterByCategoryAlias($categoryAlias)
+    {
+        $category = Categories::where('alias',$categoryAlias)
+            ->first();
+
+        if ($category) {
+            $products = $this->getProductsByCategoryId($category->id)
+                ->get();
+
+            $filter = [];
+
+            $filter['brand'] = $products->map( function ($product) {
+                return ['id' => $product->brand->id,
+                    'title' => $product->brand->title];
+            })->unique();
+
+            $filter['model'] = $products->map( function ($product) {
+                return ['id' => $product->brandModel->id,
+                    'title' => $product->brandModel->title];
+            })->unique();
+
+            return response()->json($filter);
         }
 
         return response()->json(false, 400);
