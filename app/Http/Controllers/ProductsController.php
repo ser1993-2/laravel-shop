@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\BrandModel;
 use App\Models\Categories;
 use App\Models\Products;
+use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
@@ -104,6 +105,9 @@ class ProductsController extends Controller
 
             $filter = [];
 
+            $filter['price']['min'] = $products->min('price');
+            $filter['price']['max'] = $products->max('price');
+
             $filter['brand'] = $products->map( function ($product) {
                 return ['id' => $product->brand->id,
                     'title' => $product->brand->title];
@@ -115,6 +119,23 @@ class ProductsController extends Controller
             })->unique();
 
             return response()->json($filter);
+        }
+
+        return response()->json(false, 400);
+    }
+
+    public function getProductsByFilter(Request $request)
+    {
+
+        $category = Categories::where('alias',$request->category_alias)
+            ->first();
+
+        if ($category) {
+            $products = $this->getProductsByCategoryId($category->id)
+                ->filter()
+                ->paginate(10);
+
+            return response()->json($products);
         }
 
         return response()->json(false, 400);

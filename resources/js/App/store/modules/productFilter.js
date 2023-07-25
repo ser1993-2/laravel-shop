@@ -9,19 +9,32 @@ export default {
                 .catch((error) => {
                     commit('updateFilter',{});
                 })
+                .finally(() => {
+                    commit('updateCategoryAliasInFilterRequest', category_alias);
+                })
         },
     },
     mutations: {
         updateFilter(state,filter) {
             state.filter = filter;
         },
+        updateCategoryAliasInFilterRequest(state,category_alias) {
+            state.filterRequest.category_alias = category_alias;
+        },
     },
     state: {
         filter : {},
+        filterRequest : {
+            category_alias : '',
+            price : {},
+        },
     },
     getters: {
         getFilter(state) {
             return state.filter;
+        },
+        getFilterRequest(state) {
+            return state.filterRequest;
         },
     },
 }

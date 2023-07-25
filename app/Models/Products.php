@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,6 +36,10 @@ class Products extends Model
     public function getTitleAttribute()
     {
         return $this->brand->title . ' ' . $this->brandModel->title;
+    }
+
+    public function scopeFilter(Builder $query) {
+        return  $query->whereBetween('price', [request('price.min',0), request('price.max',0)] );
     }
 
 }

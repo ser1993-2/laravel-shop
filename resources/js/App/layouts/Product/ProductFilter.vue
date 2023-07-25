@@ -1,66 +1,24 @@
 <template>
     <li>
         <ul class="list-group mb-3">
-            <li class="list-group-item justify-content-between lh-sm">
 
-                <div>
-                    <h6 class="my-0 col-5">Цена</h6>
-                </div>
+            <NumberRange
+                v-if="filters.price"
+                :title="'Цена'"
+            />
 
-                <br>
+            <CheckboxList
+                v-if="filters.brand"
+                :title="'Бренд'"
+                :list="filters.brand"
+            />
 
-                <div class="row">
-                    <div class="col-5">
-                        <input type="text" class="form-control" placeholder="0">
-                    </div>
-                    <div class="col-2">
-                        до
-                    </div>
-                    <div class="col-5">
-                        <input type="text" class="form-control" placeholder="999999">
-                    </div>
-                </div>
-            </li>
+            <CheckboxList
+                v-if="filters.model"
+                :title="'Модель'"
+                :list="filters.model"
+            />
 
-            <li class="list-group-item justify-content-between lh-sm">
-                <div>
-                    <h6 class="my-0">Бренд</h6>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <label class="list-group-item d-flex gap-2" v-for="filter in filters.brand">
-                            <input class="form-check-input flex-shrink-0" value="" checked="">
-                            <span>
-                                {{filter.title }}
-                            </span>
-                        </label>
-                    </div>
-                </div>
-
-            </li>
-
-            <li class="list-group-item justify-content-between lh-sm">
-                <div>
-                    <h6 class="my-0">Модель</h6>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <label class="list-group-item d-flex gap-2" v-for="filter in filters.model">
-                            <input class="form-check-input flex-shrink-0" value="" checked="">
-                            <span>
-                                {{filter.title }}
-                            </span>
-                        </label>
-                    </div>
-                </div>
-
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between">
-                <button class="btn btn-info">Поиск</button>
-            </li>
         </ul>
 
     </li>
@@ -68,9 +26,17 @@
 </template>
 
 <script>
+
+import NumberRange from "./Filter/NumberRange.vue";
+import CheckboxList from "./Filter/CheckboxList.vue";
+
 export default {
 
     name: "Filter",
+    components: {
+        NumberRange,
+        CheckboxList
+    },
     computed: {
         filters() {
             return this.$store.getters.getFilter;

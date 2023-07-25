@@ -36,6 +36,7 @@ Route::middleware('web')->prefix('category')->group( function () {
 });
 
 Route::middleware('web')->prefix('product')->group( function () {
+    Route::post('/filter', [\App\Http\Controllers\ProductsController::class, 'getProductsByFilter'])->name('product.productsByFilter');
     Route::get('/{alias}', [\App\Http\Controllers\ProductsController::class, 'getProductsByCategoryAlias'])->name('product.categoriesByAlias');
     Route::get('/{alias}/filter', [\App\Http\Controllers\ProductsController::class, 'getFilterByCategoryAlias'])->name('product.filterByAlias');
 });

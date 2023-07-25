@@ -14,7 +14,19 @@ export default {
         },
         SET_PAGE({commit,dispatch},page ) {
             commit('updatePage',page);
-        }
+        },
+        GET_PRODUCTS_BY_FILTERS({commit,state},filters ) {
+            commit('updateProducts',{});
+
+            axios.post('/api/product/filter' ,filters)
+                .then((response) => {
+                    let products = response.data;
+                    commit('updateProducts',products);
+                })
+                .catch((error) => {
+                    commit('updateProducts',{});
+                })
+        },
     },
     mutations: {
         updateProducts(state,products) {
