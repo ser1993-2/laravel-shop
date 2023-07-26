@@ -9,13 +9,13 @@
 
         <div class="row">
             <div class="col-5">
-                <input type="text"  v-model="filter.price.min" v-on:change="setPrice" class="form-control" placeholder="0">
+                <input type="text"  v-on:change="setProperty" class="form-control" placeholder="0">
             </div>
             <div class="col-2">
                 -
             </div>
             <div class="col-5">
-                <input type="text"  v-model="filter.price.max" v-on:change="setPrice" class="form-control" placeholder="999999">
+                <input type="text" v-on:change="setProperty" class="form-control" placeholder="1000">
             </div>
         </div>
     </li>
@@ -29,13 +29,9 @@ export default {
         filterRequest() {
             return this.$store.getters.getFilterRequest;
         },
-        filter() {
-            return this.$store.getters.getFilter;
-        },
     },
     methods: {
-        setPrice() {
-            this.filterRequest.price = this.filter.price;
+        setProperty() {
             this.$store.dispatch('GET_PRODUCTS_BY_FILTERS', this.filterRequest);
         },
     }

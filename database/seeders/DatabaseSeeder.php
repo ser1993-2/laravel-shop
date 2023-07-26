@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
             BrandModelSeeder::class,
             ProductsSeeder::class,
             ProductImageSeeder::class,
+            PropertySeeder::class,
+            ProductPropertySeeder::class,
+            PropertyCategorySeeder::class,
         ]);
     }
 }

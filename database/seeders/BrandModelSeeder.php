@@ -17,6 +17,9 @@ class BrandModelSeeder extends Seeder
             ['id' => 1, 'title' => 'MateBook D 15'],
             ['id' => 2, 'title' => 'MateBook D 14'],
             ['id' => 3, 'title' => 'GeForce RTX 3060'],
+            ['id' => 4, 'title' => 'Expertbook'],
+            ['id' => 5, 'title' => 'Pro Sprint M'],
+            ['id' => 6, 'title' => 'GeForce RTX 3080'],
         ];
 
         BrandModel::insert($mainBrandModel);

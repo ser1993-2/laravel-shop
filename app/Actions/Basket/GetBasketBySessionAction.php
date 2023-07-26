@@ -21,10 +21,14 @@ class GetBasketBySessionAction
                 session(['basket_uuid' => Str::uuid()]);
             }
 
-            $basket = Basket::create([
+            Basket::create([
                 'uuid' => session('basket_uuid'),
                 'created_at' => Carbon::now()
             ]);
+
+            $basket = Basket::with('products')
+                ->where('uuid', session('basket_uuid'))
+                ->first();
         }
 
         return $basket;

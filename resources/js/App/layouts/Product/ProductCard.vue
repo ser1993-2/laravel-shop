@@ -5,7 +5,9 @@
         </div>
         <div class="col-lg-4">
             <h6 class="mb-0">{{ product.title }}</h6>
-            <small class="text-body-secondary">*4.5</small>
+            <ul v-if="product.product_properties">
+                <li v-for="product_property in product.product_properties"> {{product_property.property.title }} : <b>{{ product_property.value }}</b> </li>
+            </ul>
         </div>
         <div class="col-lg-2">
             <h6 class="mb-0">{{ product.price }} ₽</h6>
@@ -29,11 +31,13 @@ export default {
             let basket = this.$store.getters.getBasket;
             let isProductInCart = false;
 
-            basket.products.forEach((item) => {
-              if (item.id === this.product.id) {
-                  isProductInCart = true;
-              }
-            })
+            if (basket.products) {
+                basket.products.forEach((item) => {
+                    if (item.id === this.product.id) {
+                        isProductInCart = true;
+                    }
+                })
+            }
 
             return isProductInCart;
         },

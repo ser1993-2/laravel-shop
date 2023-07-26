@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Product\GetFilterFromProducts;
 use App\Http\Requests\StoreProductsRequest;
 use App\Http\Requests\UpdateProductsRequest;
 use App\Models\Brand;
@@ -70,7 +71,10 @@ class ProductsController extends Controller
 
     public function getQueryForProducts()
     {
-        return Products::query()->with(['image','brand','brandModel']);
+
+        return Products::query()->with(['image','brand','brandModel','productProperties' => function($q) {
+            $q->with('property');
+        }]);
     }
 
     public function getProductsByCategoryId($categoryId)
@@ -94,29 +98,17 @@ class ProductsController extends Controller
         return response()->json(false, 400);
     }
 
-    public function getFilterByCategoryAlias($categoryAlias)
+    public function getFilterByCategoryAlias($categoryAlias, GetFilterFromProducts $filterFromProducts)
     {
         $category = Categories::where('alias',$categoryAlias)
             ->first();
 
         if ($category) {
             $products = $this->getProductsByCategoryId($category->id)
+                ->with(['properties'])
                 ->get();
 
-            $filter = [];
-
-            $filter['price']['min'] = $products->min('price');
-            $filter['price']['max'] = $products->max('price');
-
-            $filter['brand'] = $products->map( function ($product) {
-                return ['id' => $product->brand->id,
-                    'title' => $product->brand->title];
-            })->unique();
-
-            $filter['model'] = $products->map( function ($product) {
-                return ['id' => $product->brandModel->id,
-                    'title' => $product->brandModel->title];
-            })->unique();
+            $filter = $filterFromProducts->handle($products);
 
             return response()->json($filter);
         }
@@ -131,7 +123,7 @@ class ProductsController extends Controller
             ->first();
 
         if ($category) {
-            $products = $this->getProductsByCategoryId($category->id)
+            $products = Products::where('category_id', $category->id)
                 ->filter()
                 ->paginate(10);
 
